@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access.sale.retur.setting.administrator,access_sale_retur_setting_administrator,model_sale_retur_setting,sale_retur.group_administrator,1,1,1,1
+access.sale.retur.administrator,access_sale_retur_administrator,model_sale_retur,sale_retur.group_administrator,1,1,1,1
+access.sale.retur.item.administrator,access_sale_retur_item_administrator,model_sale_retur_item,sale_retur.group_administrator,1,1,1,1
+access.sale.retur.customer,access_sale_retur_customer,model_sale_retur,sale_retur.group_customer,1,1,1,1
+access.sale.retur.item.customer,access_sale_retur_item_customer,model_sale_retur_item,sale_retur.group_customer,1,1,1,1

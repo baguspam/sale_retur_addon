@@ -1,0 +1,17 @@
+{
+  "folders": [
+	{
+		"path": ".."
+	},
+	{
+		"path": "C:\\Program Files\\Odoo14\\server\\odoo\\addons\\sale"
+	},
+	{
+		"path": "..\\..\\materials"
+	},
+	{
+		"path": "..\\..\\arina"
+	}
+],
+  "settings": {}
+}

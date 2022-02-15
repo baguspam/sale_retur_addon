@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- List View -->
+        <record model="ir.ui.view" id="sale_retur_tree">
+            <field name="name">sale.retur.tree</field>
+            <field name="model">sale.retur</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="customer_id"/>
+                    <field name="transaction_date"/>
+                    <field name="reference"/>
+                    <field name="state" widget="badge" decoration-danger="state == 'reject'" decoration-warning="state in ('request')" decoration-success="state in ('done')" />
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Form View -->
+        <record model="ir.ui.view" id="sale_retur_form">
+            <field name="name">sale.retur.form</field>
+            <field name="model">sale.retur</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Set Request" type="object" name="set_draft"  attrs="{'invisible': [('state', '=', 'request')]}"  groups="sale_retur.group_administrator"></button>
+                        <button string="Set Done" type="object" class="oe_highlight" name="set_done" attrs="{'invisible': [('state', '=', 'done')]}"  groups="sale_retur.group_administrator"></button>
+                        <button string="Set Reject" type="object" class="btn-danger"  vals="reject" name="set_reject" attrs="{'invisible': [('state', '=', 'reject')]}"  groups="sale_retur.group_administrator"></button>
+                        <field name="state" widget="statusbar" clickable="False" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                            <!-- customer -->
+                                <field name="customer_id" 
+                                    attrs="{'readonly': [('customer_id', '!=', False)]}"
+                                    groups="sale_retur.group_customer"
+                                    options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+
+                            <!-- adminstrator -->
+                                 <field name="customer_id" 
+                                    groups="sale_retur.group_administrator"
+                                    options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                                <field name="transaction_date"/>
+                                <field name="reference"/>
+                            </group>
+                        </group>
+                        <group>
+                            <notebook>
+                                <page string="Barang yang diretur">
+                                    <field name="line_ids">
+                                        <tree editable="bottom">
+                                           <field name="product_id"
+                                                context="{'uom':product_uom,}"
+                                                force_save="1"
+                                                widget="many2one_barcode"
+                                                options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                                               />
+                                            <field name="qty"/>
+                                            <field name="product_uom"/>
+                                            <field name="product_uom_category_id" invisible="1"/>
+                                            <field name="reason"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+                   
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_retur_filter" model="ir.ui.view">
+            <field name="name">sale.retur.select</field>
+            <field name="model">sale.retur</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="customer_id" string="Customer"
+                           filter_domain="[('customer_id', 'ilike', self)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Costomer" name="group_by_customer" context="{'group_by':'customer_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="sale_retur_action">
+            <field name="name">Form Retur</field>
+            <field name="res_model">sale.retur</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="sale_retur_filter"/>
+        </record>
+
+        <menuitem
+                id="sale_retur_child_menu"
+                action="sale_retur_action"
+                parent="sale_retur_base_menu"
+                name="Data Retur"
+                sequence="0"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem
+                id="sale_retur_base_menu"
+                name = "Form Retur"
+                sequence="0"/>
+    </data>
+</odoo>
